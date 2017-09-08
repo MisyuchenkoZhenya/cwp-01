@@ -1,3 +1,10 @@
-const name = process.argv[2];
+//console.log('Hello World');
 
-console.log(`Hi ${name}`);
+
+//const name = process.argv[2];
+//console.log(`Hello ${name}!`);
+
+
+process.argv.forEach((val) => {
+    console.log(`${val}`);
+});
