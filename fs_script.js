@@ -11,7 +11,7 @@ if (pathDirectory !== undefined){
             fs.writeFile(pathDirectory + '\\summary.js',
 "let fs = require('fs');                                                                        \n\
 let path = require('path');                                                                     \n\
-let pathDirectory = '" + pathDirectory.replace(/\\/gi, '/') + "/';                              \n\n\
+let pathDirectory = '" + pathDirectory.replace(/\\/g, '/') + "/';                               \n\n\
 function createDir(base){                                                                       \n\
     let lastDir = base.split('/');                                                              \n\
     let len = lastDir.length;                                                                   \n\
@@ -28,8 +28,9 @@ function readDir(base, dirForTxt){                                              
         files.forEach((item) => {                                                               \n\
             fs.stat(base + '/' + item, (err, state) => {                                        \n\
                 if(state.isDirectory()){                                                        \n\
-                    readDir(base + '/' + item);                                                 \n\
-                } else if(path.extname(item).toLowerCase() === '.txt'){                         \n\
+                    let pth = base.slice(-1) === '/' ? base + item : base + '/' + item;         \n\
+                    readDir(pth, dirForTxt);                                                    \n\
+                } else if(path.extname(item).toLowerCase() === '.txt' && base !== dirForTxt){   \n\
                     moveTxtFile(dirForTxt, base + '/' + item);                                  \n\
                 } else {                                                                        \n\
                     console.log(path.relative(pathDirectory, base + '/' + item));               \n\
